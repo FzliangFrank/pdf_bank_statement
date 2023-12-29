@@ -1,6 +1,6 @@
 [project]
 name = "pdf_bank_statement"
-version = "0.0.1"
+version = "0.0.1.2"
 authors = [
   { name="Example Author", email="author@example.com" },
 ]
