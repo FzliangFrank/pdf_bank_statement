@@ -10,6 +10,7 @@ from pdf_bank_statement import reader as bank_reader
 
 
 df = bank_reader.read(test_file_path)
+df2 = bank_reader.read([test_file_path, test_file_path])
 
 with duckdb.connect() as con:
     print(con.sql("select * from df order by random() limit 3"))

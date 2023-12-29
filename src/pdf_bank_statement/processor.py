@@ -68,6 +68,7 @@ class BankTransactionProcesser():
         dt_converted = self.convert_dtype(concatenated_df)
 
         if reset: 
+            self.reset_tmp_vars()
             return(dt_converted)
         else: 
             print(f'Read additional {len(transaction_blocks)} tables.Total {len(self.dfs)} tables populated.')
@@ -113,7 +114,7 @@ class BankTransactionProcesser():
             raise ValueError("No dataframes have been processed. Call process_transactions() first.")
         else:
             concatenated_df = pd.concat(self.dfs, ignore_index=True)
-            self.reset_tmp_vars()
+            # self.reset_tmp_vars()
         return concatenated_df
     
     def convert_dtype(self, df: pd.DataFrame):
