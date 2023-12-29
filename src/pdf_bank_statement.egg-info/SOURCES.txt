@@ -1,0 +1,13 @@
+pyproject.toml
+src/pdf_bank_statement/__import.py
+src/pdf_bank_statement/__init__.py
+src/pdf_bank_statement/analyser.py
+src/pdf_bank_statement/processor.py
+src/pdf_bank_statement/reader.py
+src/pdf_bank_statement/toy.py
+src/pdf_bank_statement.egg-info/PKG-INFO
+src/pdf_bank_statement.egg-info/SOURCES.txt
+src/pdf_bank_statement.egg-info/dependency_links.txt
+src/pdf_bank_statement.egg-info/top_level.txt
+src/tests/__init__.py
+src/tests/test.py
