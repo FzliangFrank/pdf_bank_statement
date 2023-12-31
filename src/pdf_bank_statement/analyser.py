@@ -91,15 +91,20 @@ class BankTransactionAnalyser():
         return self
                 
     def __categorise(self):
-        description = self.data['Description']
 
-        # loop through predefined category, term mappping
-        for value, rex in self.category_maper.items():
-            description.replace(rex, value, regex=True,inplace=True)
-
+        def which_cateogry(x):# process a vender to key based on regex
+            category_dict=self.category_maper
+            for category in category_dict:
+                match_key = category_dict[category]
+                if re.match(match_key, x):
+                    return(category)
+            return('Other')
+        
+        description = self.data['Description'].map(which_cateogry)
         self.data.insert(6, "Category", description)
 
         assert [*self.data.columns] ==  ['Date', 'Description', 'Type', 'Money In (£)', 'Money Out (£)', 'Balance (£)', 'Category', 'src_file']
+        
         return self.data
     
     def add_period(self):
