@@ -2,8 +2,8 @@ from .__import import *
 
 
 def analyse(dataframe):
-    df = BankTransactionAnalyser(dataframe)
-    return df()
+    analyser_obj = BankTransactionAnalyser(dataframe)
+    return analyser_obj
 
 class BankTransactionAnalyser():
     darkmode = False
@@ -16,7 +16,7 @@ class BankTransactionAnalyser():
     #     'Balance (£)': np.dtype('float64')
     #     }
     
-    category = {
+    category_maper = {
         'Food & Grocery': 'MARKS&SPENCER PLC|TESCO|SAINSBURYS|CO-OP GROUP',
         'Transport': 'STGCOACH|TRAINLINE',
         'Cafe':'COSTA COFFEE|PRET A MANGER',
@@ -91,19 +91,15 @@ class BankTransactionAnalyser():
         return self
                 
     def __categorise(self):
-        def which_cateogry(x):# process a vender to key based on regex
-            category_dict=self.category
-            for category in category_dict:
-                match_key = category_dict[category]
-                if re.match(match_key, x):
-                    return(category)
-            return('Other')
-        
-        self.data = (
-            self.data.assign(
-                Category = lambda df: df['Description'].map(which_cateogry)
-            )
-        )
+        description = self.data['Description']
+
+        # loop through predefined category, term mappping
+        for value, rex in self.category_maper.items():
+            description.replace(rex, value, regex=True,inplace=True)
+
+        self.data.insert(6, "Category", description)
+
+        assert [*self.data.columns] ==  ['Date', 'Description', 'Type', 'Money In (£)', 'Money Out (£)', 'Balance (£)', 'Category', 'src_file']
         return self.data
     
     def add_period(self):

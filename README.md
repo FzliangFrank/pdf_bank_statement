@@ -11,5 +11,5 @@ df = reader.read(all_statement)
 
 ```python
 import pdf_bank_statement.analyser as analyser
-categorised = analyser.analyse(df)
+categorised = analyser.analyse(df).data
 ```

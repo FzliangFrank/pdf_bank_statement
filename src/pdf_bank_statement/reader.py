@@ -1,7 +1,6 @@
 from .__import import *
 from .processor import BankTransactionProcesser
 
-
 def read(pdf_file_path, processor=None):
     """
     Read bankstatement on the fly. This is considered as interface 
@@ -19,10 +18,10 @@ def read(pdf_file_path, processor=None):
     if isinstance(pdf_file_path, (list)):
 
         for file in pdf_file_path:
-            processor.read(file, reset=False)
+            processor.process(file)
 
-        df = processor.get_concatenated_dataframe()
+        df = processor.export()
     else:   
-        df = processor.read(pdf_file_path)
+        df = processor.process(pdf_file_path).export()
     return df
         
